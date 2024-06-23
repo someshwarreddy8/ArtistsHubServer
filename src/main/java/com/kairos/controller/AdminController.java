@@ -5,10 +5,9 @@ import com.kairos.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("admin")
@@ -20,5 +19,17 @@ public class AdminController {
     public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
         Admin savedAdmin = adminService.addAdmin(admin);
         return new ResponseEntity<>(savedAdmin, HttpStatus.OK);
+    }
+
+    @GetMapping("getAdminList")
+    public ResponseEntity<List<Admin>> getAdminList() {
+        List<Admin> adminList = adminService.getAdminList();
+        return new ResponseEntity<>(adminList, HttpStatus.OK);
+    }
+
+    @GetMapping("getAdmin/{id}")
+    public ResponseEntity<Admin> getAdmin(@PathVariable Long id) {
+        Admin admin = adminService.getAdmin(id);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 }
